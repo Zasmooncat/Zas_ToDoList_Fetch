@@ -83,25 +83,27 @@ const ToDoList = () => {
                     {/* {thingsToDO.length === 0 ? <p className=" nohay text-danger fst-italic pt-2">No hay tareas. Añade una nueva</p> : ""} */}
 
                     <div className="tasks col-8 m-auto">
-                        
-                            <ol>
-                                {thingsToDO.map((task, index) => (
 
-                                    <li className="bg-white text-start p-2 m-2" onMouseEnter={() => setIconVisible(index)}
-                                        onMouseLeave={() => setIconVisible(-1)}
-                                        key={index}>{task}
-                                        {iconVisible == index && ( // retorna lo de la derecha de && si lo de la izquierda es TRUE... si es falso no lo retorna 
-                                          
-                                            <button className="boton" onClick={() => deleteNewTask(index)}><i className="fas fa-times"></i></button>
+                        <ol>
+                            {thingsToDO.map((task, index) => (
 
-                                        )}
+                                <li className=" p-2 m-2" onMouseEnter={() => setIconVisible(index)}
+                                    onMouseLeave={() => setIconVisible(-1)}
+                                    key={index}>{task}
+                                    {iconVisible == index && ( // retorna lo de la derecha de && si lo de la izquierda es TRUE... si es falso no lo retorna 
+
+                                        <button className="boton" onClick={() => deleteNewTask(index)}><i className="fas fa-times"></i></button>
+
+                                    )}
                                     <span>   </span>
-                                    </li>
-                                ))}
-                            </ol>
-                        
-                        {/* 
-                        <p className="text-center">{thingsToDO.length} tareas</p> */}
+                                </li>
+                            ))}
+                        </ol>
+
+
+                        <p className="foot text-center mt-5">{thingsToDO.length == 0 ? "No tienes tareas pendientes" :
+                            thingsToDO.length == 1 ? "Tienes " + thingsToDO.length + " tarea pendiente" :
+                                "Tienes " + thingsToDO.length + " tareas pendientes"}</p>
                     </div>
                 </div>
             </div>

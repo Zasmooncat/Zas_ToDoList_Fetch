@@ -12,7 +12,7 @@ body{
 
    box-shadow: 0px 5px 10px 5px rgba(200, 173, 144, 0.36);
    
-   background:linear-gradient(rgb(255, 250, 239), white)
+   background:linear-gradient(rgb(255, 255, 255), rgb(255, 250, 239))
 }
 
 h1{
@@ -20,7 +20,7 @@ h1{
    font-weight: 400;
    font-style: normal;
    font-size: 50px;
-   color:rgb(181, 125, 73)
+   color:rgb(129, 89, 52)
    
 }
 
@@ -28,9 +28,12 @@ h1{
 li {
    margin:20px;
    position: relative;
-   list-style-type:none;
+   list-style-type:disc;
    border-radius: 50px;
    font-size: 14px;
+   text-align:start;
+   color:rgb(129, 89, 52)
+   
 }
    
    
@@ -67,7 +70,7 @@ li {
  }
  
  input {
-   font-weight: 500;
+   color:rgb(156, 112, 75);
    font-size: 14px;
    height: 40px;
    border-radius: 50px;
@@ -78,7 +81,7 @@ li {
  }
  
  input:focus {
-   border-bottom: 1px solid #6941c6;
+   border-bottom: 1px solid #524336ab;
    -webkit-transition: 0.1s;
    transition: 0.5s;
  }
@@ -86,3 +89,9 @@ li {
  input::placeholder{
    color:#c5c5c5
  }
+
+.foot{
+
+   color:rgb(218, 134, 0);
+   font-size: 12px;
+}
