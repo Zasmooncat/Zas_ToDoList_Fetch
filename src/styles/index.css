@@ -1,12 +1,88 @@
+*{
+   font-family: 'Poppins', sans-serif;
+}
 
-/* 
+body{
+   background-image:url("https://cdn.pixabay.com/photo/2021/12/04/19/09/background-6845828_1280.png");
+   
+}
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
 
-*/
+.wrapper{
+
+   box-shadow: 0px 5px 10px 5px rgba(200, 173, 144, 0.36);
+   
+   background:linear-gradient(rgb(255, 250, 239), white)
+}
+
+h1{
+   font-family: "Shadows Into Light", cursive;
+   font-weight: 400;
+   font-style: normal;
+   font-size: 50px;
+   color:rgb(181, 125, 73)
+   
+}
+
+
+li {
+   margin:20px;
+   position: relative;
+   list-style-type:none;
+   border-radius: 50px;
+   font-size: 14px;
+}
+   
+   
+
+
+
+.boton{
+   border: none;
+   background:none;
+   position: absolute;
+   right: 2vh;
+   
+}
+.addButton {
+   color: #090909;
+   padding: 0.3em 0.8em;
+   font-size: 14px;
+   border-radius: 50px;
+   background: #fcf7e8;
+   cursor: pointer;
+   border: 1px solid #ffffff;
+   transition: all 0.3s;
+   box-shadow: 2px 4px 8px 1px #ac936355, -6px -6px 12px #ffffff;
+   margin:20px 20px 20px 10px;
+ }
+ 
+ .addButton:hover {
+   border: 1px solid rgb(244, 244, 244);
+   background-color: rgb(255, 255, 255);
+ }
+ 
+ .addButton:active {
+   box-shadow: 2px 1px 5px #c5c5c5, -4px -4px 12px #ffffff;
+ }
+ 
+ input {
+   font-weight: 500;
+   font-size: 14px;
+   height: 40px;
+   border-radius: 50px;
+   padding-left: 10px;
+   border: none;
+   border-bottom: 1px solid #e5e5e5;
+   outline: none;
+ }
+ 
+ input:focus {
+   border-bottom: 1px solid #6941c6;
+   -webkit-transition: 0.1s;
+   transition: 0.5s;
+ }
+
+ input::placeholder{
+   color:#c5c5c5
+ }
