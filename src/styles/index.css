@@ -44,9 +44,19 @@ li {
    border: none;
    background:none;
    position: absolute;
-   right: 2vh;
-   
+   right: 3vh;
 }
+
+.boton-block {
+   right: 5vh;
+}
+
+
+.boton-edit {
+   right: 7vh;
+}
+   
+   
 .addButton {
    color: #090909;
    padding: 0.3em 0.8em;
@@ -94,4 +104,8 @@ li {
 
    color:rgb(218, 134, 0);
    font-size: 12px;
+}
+
+i:hover{
+   color:rgb(218, 134, 0);
 }

@@ -1,5 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from 'uuid';
+import Swal from 'sweetalert2'
 
 
 
@@ -7,10 +9,26 @@ import { useState, useEffect } from "react";
 const ToDoList = () => {
 
     const [thingsToDO, setThingsToDo] = useState([]) //lista
-    const [newTask, setNewTask] = useState("") //input
+    const [newTask, setNewTask] = useState({
+        id: "",
+        task: "",
+        isLocked: false
+    }) //input
     const [iconVisible, setIconVisible] = useState(-1)
     console.log(newTask);
 
+// comprobar si cuando carga hay elementos en localStorage
+    useEffect(() => {
+        const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        setThingsToDo(savedTasks);
+    }, []);
+
+    // Guardar lista en localStorage cuando cambie
+
+     useEffect(() => {
+        const lockedTasks = thingsToDO.filter(task => task.isLocked);
+        localStorage.setItem("tasks", JSON.stringify(lockedTasks));
+    }, [thingsToDO]);
 
 
 
@@ -19,14 +37,21 @@ const ToDoList = () => {
     const addNewTask = (e) => {
         e.preventDefault();
         const newList = [...thingsToDO];
-        if (newTask === "") {
+        if (newTask.task === "") {
             return
         }
 
         newList.push(newTask);
         setThingsToDo(newList);
-        setNewTask("")
+        setNewTask({
+            id: "",
+            task: "",
+            isLocked: false
+        })
     }
+    
+
+
 
     //funcion eliminar tarea
 
@@ -34,28 +59,37 @@ const ToDoList = () => {
 
         setThingsToDo((prevList) => prevList.filter((_, i) => i !== index))
         setIconVisible(-1)
+
     }
 
+    // funcion editar tarea
 
+    const editNewTask = (index) => {
+        const taskToEdit = thingsToDO[index];
+        const updatedTask = prompt("Edita la tarea:", taskToEdit.task);
+        
+        if (updatedTask) {
+            const updatedList = thingsToDO.map((task, i) => 
+                i === index ? { ...task, task: updatedTask } : task
+            );
+            setThingsToDo(updatedList);
+        }
+    };
 
+    
 
-
-    // const tasksLeft = () => {
-
-    //     thingsToDO.length === 0 ? "" : thingsToDO.length + " tasks left"
-    //     return tasksLeft
-    // }
-
-
-
-
+    const toggleLockTask = (index) => {
+        const updatedList = thingsToDO.map((task, i) => 
+            i === index ? { ...task, isLocked: !task.isLocked } : task
+        );
+        setThingsToDo(updatedList);
+    };
 
 
     return (
 
         <>
-            <div className="wrapper p-5 container col-11 col-md-5 border mt-5
-             rounded-3">
+            <div className="wrapper p-5 container col-11 col-md-5 border mt-5 rounded-3">
                 <h1 className="titulo text-center mb-4">Lista de tareas</h1>
                 <div className="container text-center">
 
@@ -65,8 +99,8 @@ const ToDoList = () => {
 
                             <input name="tarea" type="text" className="new-task" placeholder="Nueva tarea"
                                 required
-                                value={newTask} // el input hace referencia al newTask
-                                onChange={(e) => setNewTask(e.target.value)} //le damos el value del input(target.value) a newTask mediante la funcion setNewTask
+                                value={newTask.task} // el input hace referencia al newTask
+                                onChange={(e) => setNewTask({ id: uuidv4(), task: e.target.value })} //le damos el value del input(target.value) a newTask mediante la funcion setNewTask
                             />
                             <button type="submit" className="addButton"
                                 onClick={addNewTask}>+</button>
@@ -80,22 +114,24 @@ const ToDoList = () => {
 
                     </div>
 
-                    {/* {thingsToDO.length === 0 ? <p className=" nohay text-danger fst-italic pt-2">No hay tareas. Añade una nueva</p> : ""} */}
+
 
                     <div className="tasks col-8 m-auto">
 
                         <ol>
-                            {thingsToDO.map((task, index) => (
+                            {thingsToDO.map((tarea, index) => (
 
                                 <li className=" p-2 m-2" onMouseEnter={() => setIconVisible(index)}
                                     onMouseLeave={() => setIconVisible(-1)}
-                                    key={index}>{task}
-                                    {iconVisible == index && ( // retorna lo de la derecha de && si lo de la izquierda es TRUE... si es falso no lo retorna 
-
-                                        <button className="boton" onClick={() => deleteNewTask(index)}><i className="fas fa-times"></i></button>
-
+                                    key={tarea.id}>{tarea.task}
+                                    {iconVisible == index && (
+                                        <>
+                                            <button className="boton boton-edit " onClick={() => editNewTask(index)}><i className="fas fa-pencil-alt"></i></button>
+                                            <button className="boton boton-block " onClick={() => toggleLockTask(index)}> {tarea.isLocked ? <i className="fas fa-lock"></i> : <i className="fas fa-unlock"></i>}</button>
+                                            <button className="boton " onClick={() => deleteNewTask(index)}><i className="fas fa-times"></i></button>
+                                        </>
                                     )}
-                                    <span>   </span>
+
                                 </li>
                             ))}
                         </ol>
